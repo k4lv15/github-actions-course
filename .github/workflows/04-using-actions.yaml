@@ -1,0 +1,14 @@
+name: "04 - Using actions"
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout Code"
+        uses: actions/checkout@v7
+      - name: "Printing Folders"
+        run: |
+          ls -la 04-using-actions/react-app/
