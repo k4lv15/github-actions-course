@@ -12,7 +12,7 @@ jobs:
         run: |
           echo "This job is running on an Ubuntu runner."
           cat /etc/os-release | grep PRETTY_NAME
-          echo "Runner OS: ${{ github.env.RUNNER_OS }}"
+          echo "Runner OS: $RUNNER_OS"
   # windows-echo:
   #   runs-on: windows-latest
   #   steps:
