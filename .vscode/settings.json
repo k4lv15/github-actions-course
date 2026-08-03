@@ -1,7 +1,17 @@
 {
   "yaml.schemas": {
     "https://json.schemastore.org/github-workflow.json": [
-      ".github/workflows/*.{yml,yaml}"
+      ".github/workflows/*.yml",
+      ".github/workflows/*.yaml"
     ]
+  },
+  "yaml.completion": true,
+  "[yaml]": {
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
+    },
+    "editor.suggestOnTriggerCharacters": true
   }
 }
