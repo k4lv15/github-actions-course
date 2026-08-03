@@ -13,18 +13,18 @@ jobs:
           echo "This job is running on an Ubuntu runner."
           cat /etc/os-release | grep PRETTY_NAME
           echo "Runner OS: $RUNNER_OS"
-  # windows-echo:
-  #   runs-on: windows-latest
-  #   steps:
-  #     - name: "Show OS"
-  #       # shell: bash
-  #       run: |
-  #         echo "This job is running on a Windows runner."
-  #         ver
-  # mac-echo:
-  #   runs-on: macos-latest
-  #   steps:
-  #     - name: "Show OS"
-  #       run: |
-  #         echo "This job is running on a MacOS runner."
-  #         echo "Runner OS: ${{ github.env.RUNNER_OS }}"
+  windows-echo:
+    runs-on: windows-latest
+    steps:
+      - name: "Show OS"
+        shell: bash
+        run: |
+          echo "This job is running on a Windows runner."
+          echo "Runner OS: $RUNNER_OS"
+  mac-echo:
+    runs-on: macos-latest
+    steps:
+      - name: "Show OS"
+        run: |
+          echo "This job is running on a MacOS runner."
+          echo "Runner OS: $RUNNER_OS"
