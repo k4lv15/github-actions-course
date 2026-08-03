@@ -1,9 +1,9 @@
 name: "02 - Workflow Events"
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "7,22,37,52 * * * *"
-      timezone: "Europe/Riga"
+  # schedule:
+  #   - cron: "7,22,37,52 * * * *"
+  #     timezone: "Europe/Riga"
 
 jobs:
   echo:
