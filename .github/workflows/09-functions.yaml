@@ -1,0 +1,31 @@
+name: "09 - Using Functions"
+on:
+  push:
+  workflow_dispatch:
+env:
+  WORKFLOW_VAR: "I am a workflow env var"
+  OVERWRITTEN: "I will be overwritten"
+  UNDEFINED_VAR_WITH_DEFAULT: ${{ vars.UNDEFINED_VAR || 'default value' }}
+jobs:
+  echo1 :
+    name: "Echo"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Failing step"
+        run: exit 1
+      - name: "I will be skipped"
+        if: ${{ success() }}
+        run: |
+          echo "I will print if previous steps succeed."
+      - name: "I will execute"
+        if: ${{ failure() }}
+        run: |
+          echo "I will print if any previous step fails."
+      - name: "I will execute"
+        if: ${{ !cancelled() }}
+        run: |
+          echo "I will always print, except when the workflow is cancelled."
+      - name: "I will execute when cancelled"
+        if: cancelled()
+        run: |
+          echo "Workflow was cancelled"
