@@ -20,7 +20,7 @@ jobs:
         run: |
           echo "Step env var: ${{ env.STEP_VAR }}"
           echo "Step env var 2: ${{ env.step-var2 }}"
-          echo "Job env var: ${{ env.JOB_VAR }}"
+          echo "Job env var: $JOB_VAR"
           echo "Workflow env var: ${{ env.WORKFLOW_VAR }}"
           echo "Overwritten: ${{ env.OVERWRITTEN }}"
       - name: "Overwrite Job Variable"
