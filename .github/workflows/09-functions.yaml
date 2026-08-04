@@ -1,6 +1,6 @@
 name: "09 - Using Functions"
 on:
-  # pull_request:
+  pull_request:
   workflow_dispatch:
 env:
   WORKFLOW_VAR: "I am a workflow env var"
@@ -17,7 +17,10 @@ jobs:
       - name: "Print PR labels"
         run: |
             echo "Pull request labels (string): ${{ join(github.event.pull_request.labels, ',' ) || 'No labels attached' }}"
-            echo "Pull request labels (JSON): ${{ github.event.pull_request.labels && toJson(github.event.pull_request.labels) || 'No labels attached' }}"
+            echo "Pull request labels (JSON):"
+            cat << EOF
+            ${{ github.event.pull_request.labels && toJson(github.event.pull_request.labels) || 'No labels attached' }}
+            EOF
       - name: "Sleep for 20 seconds"
         run: sleep 20
       - name: "Failing step"
