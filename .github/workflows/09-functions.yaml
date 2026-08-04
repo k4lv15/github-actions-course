@@ -16,8 +16,8 @@ jobs:
             echo "PR title: ${{ github.event.pull_request.title }}"
       - name: "Print PR labels"
         run: |
-            echo "Pull request labels (strng): ${{ join(github.event.pull_request.labels, ',' ) || 'No labels attached' }}"
-            echo "Pull request labels (JSON): ${{ toJson(github.event.pull_request.labels) || 'No labels attached' }}"
+            echo "Pull request labels (string): ${{ join(github.event.pull_request.labels, ',' ) || 'No labels attached' }}"
+            echo "Pull request labels (JSON): ${{ github.event.pull_request.labels && toJson(github.event.pull_request.labels) || 'No labels attached' }}"
       - name: "Bug step"
         if: ${{ failure() && !cancelled() && contains(github.event.pull_request.title, 'fix') }}
         run: |
