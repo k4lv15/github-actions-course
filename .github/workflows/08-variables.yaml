@@ -49,6 +49,17 @@ jobs:
           echo "Org overwritten var: ${{ vars.OVERWRITTEN_VAR || 'organization value 2' }}"
           echo "Repo var: ${{ vars.REPOSITORY_VAR }}"
           echo "Environment var: ${{ vars.TARGET_VAR }}"
+  echo-staging:
+    name: "Echo staging"
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - name: "Print Staging Variables"
+        run: |
+          echo "Org var: ${{ vars.ORG_VAR || 'organization value' }}"
+          echo "Org overwritten var: ${{ vars.OVERWRITTEN_VAR || 'organization value 2' }}"
+          echo "Repo var: ${{ vars.REPOSITORY_VAR }}"
+          echo "Environment var: ${{ vars.TARGET_VAR }}"
   echo-undefined:
     name: "Echo undefined"
     runs-on: ubuntu-latest
