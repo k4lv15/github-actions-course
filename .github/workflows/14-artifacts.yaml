@@ -51,7 +51,7 @@ jobs:
       - name: "Download build files"
         uses: actions/download-artifact@v8
         with:
-          name: ${{ needs.test-build }}
+          name: ${{ env.build-artifact-key }}
           path: build
       - name: "Show folder structure"
         run: ls -R
