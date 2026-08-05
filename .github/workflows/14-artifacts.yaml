@@ -28,8 +28,10 @@ jobs:
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: npm ci
       - name: "Unit tests"
+        env:
+          CI: true
         run: |
-          npm test -- --watchAll=false --coverage
+          npm test -- --coverage
       - name: "Upload test results"
         uses: actions/upload-artifact@v7
         with:
