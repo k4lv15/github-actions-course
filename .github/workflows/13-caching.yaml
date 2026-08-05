@@ -6,6 +6,13 @@ on:
         description: "Whether to use cache"
         type: boolean
         default: true
+      node-version:
+        description: "Node version"
+        type: choice
+        options:
+          - 24.x
+          - 26.x
+        default: 24.x
 jobs:
   build:
     name: "Build"
@@ -19,8 +26,16 @@ jobs:
       - name: "Setup Node"
         uses: actions/setup-node@v7
         with:
-          node-version: '24.x'
+          node-version: ${{ inputs.node-version }}
+      - name: "Download cached dependencies"
+        if: ${{ inputs.use-cache == true }}
+        id: cache
+        uses: actions/cache@v6
+        with:
+          key: deps-node-modules-${{ hashFiles('13-caching/react-app/package-lock.json') }}
+          path: "13-caching/react-app/node_modules"
       - name: "Install dependencies"
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: |
           npm ci
       - name: "Testing"
