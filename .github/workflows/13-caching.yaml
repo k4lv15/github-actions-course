@@ -33,6 +33,8 @@ jobs:
         id: cache-key
         run: |
           echo "CACHE_KEY=deps-node-modules-${{ hashFiles('package-lock.json') }}" >> "$GITHUB_OUTPUT"
+          echo "Debug GITHUB_OUTPUT below:"
+          cat "$GITHUB_OUTPUT"
       - name: "Download cached dependencies"
         uses: actions/cache@v6
         id: cache
@@ -43,57 +45,57 @@ jobs:
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: |
           npm ci
-  build:
-    name: "Build"
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./13-caching/react-app
-    needs:
-      - install-deps
-    steps:
-      - name: "Checkout code"
-        uses: actions/checkout@v7
-      - name: "Setup Node"
-        uses: actions/setup-node@v7
-        with:
-          node-version: ${{ inputs.node-version }}
-      - name: "Download cached dependencies"
-        uses: actions/cache@v6
-        with:
-          key: ${{ needs.install-deps.outputs.deps-cache-key }}
-          path: "13-caching/react-app/node_modules"
-      - name: "Testing"
-        run: |
-          npm run test
-      - name: "Building"
-        run: |
-          npm run build
-      - name: "Deploying to nonprod"
-        run: echo "Deploying to nonprod"
-  linting:
-    name: "Linting"
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./13-caching/react-app
-    needs:
-      - install-deps
-    steps:
-      - name: "Checkout code"
-        uses: actions/checkout@v7
-      - name: "Setup Node"
-        uses: actions/setup-node@v7
-        with:
-          node-version: ${{ inputs.node-version }}
-      - name: "Download cached dependencies"
-        id: cache
-        uses: actions/cache@v6
-        with:
-          key: ${{ needs.install-deps.outputs.deps-cache-key }}
-          path: "13-caching/react-app/node_modules"
-      - name: "Testing"
-        run: |
-          npm run test
-      - name: "Linting"
-        run: echo "Linting..."
+  # build:
+  #   name: "Build"
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: ./13-caching/react-app
+  #   needs:
+  #     - install-deps
+  #   steps:
+  #     - name: "Checkout code"
+  #       uses: actions/checkout@v7
+  #     - name: "Setup Node"
+  #       uses: actions/setup-node@v7
+  #       with:
+  #         node-version: ${{ inputs.node-version }}
+  #     - name: "Download cached dependencies"
+  #       uses: actions/cache@v6
+  #       with:
+  #         key: ${{ needs.install-deps.outputs.deps-cache-key }}
+  #         path: "13-caching/react-app/node_modules"
+  #     - name: "Testing"
+  #       run: |
+  #         npm run test
+  #     - name: "Building"
+  #       run: |
+  #         npm run build
+  #     - name: "Deploying to nonprod"
+  #       run: echo "Deploying to nonprod"
+  # linting:
+  #   name: "Linting"
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: ./13-caching/react-app
+  #   needs:
+  #     - install-deps
+  #   steps:
+  #     - name: "Checkout code"
+  #       uses: actions/checkout@v7
+  #     - name: "Setup Node"
+  #       uses: actions/setup-node@v7
+  #       with:
+  #         node-version: ${{ inputs.node-version }}
+  #     - name: "Download cached dependencies"
+  #       id: cache
+  #       uses: actions/cache@v6
+  #       with:
+  #         key: ${{ needs.install-deps.outputs.deps-cache-key }}
+  #         path: "13-caching/react-app/node_modules"
+  #     - name: "Testing"
+  #       run: |
+  #         npm run test
+  #     - name: "Linting"
+  #       run: echo "Linting..."
