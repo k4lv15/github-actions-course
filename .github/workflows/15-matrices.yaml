@@ -51,7 +51,7 @@ jobs:
           - opacity: 50
         exclude:
           - color: green
-          - shape: circle
+            shape: circle
     steps:
       - name: "Dummy step"
         run: |
