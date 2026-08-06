@@ -18,11 +18,13 @@ runs:
         node-version: ${{ inputs.node-version }}
     - name: "Cache dependencies"
       uses: actions/cache@v6
+      id: cache
       with:
-        path: ${{ inputs.working-dir }}/node_modules
+        path: ${{ format('{0}/{1}', inputs.working-dir, 'node_modules') }}
         key: node-deps-${{ hashFiles(format('{0}/{1}', inputs.working-dir, 'package-lock.json')) }}
     - name: "Install dependencies"
       shell: bash
+      if: ${{ steps.cache.output.cache-hit != 'true' }}
       working-directory: ${{ inputs.working-directory }}
       run: |
         npm ci
