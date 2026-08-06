@@ -1,15 +1,12 @@
-name: '17 - 2 - Custom Actions - JS'
-run-name: '17 - 1 - Custom Actions - JS'
+name: "17 - 2 - Custom Actions - JS"
+run-name: "17 - 1 - Custom Actions - JS"
 on:
   workflow_dispatch:
 jobs:
-  build:
-    defaults:
-      run:
-        working-directory: ${{ env.working-directory }}
+  dependency-update:
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout code'
+      - name: "Checkout code"
         uses: actions/checkout@v7
-      - name: 'Check for dependency updates'
+      - name: "Check for dependency updates"
         uses: ./.github/actions/js-dependency-update
