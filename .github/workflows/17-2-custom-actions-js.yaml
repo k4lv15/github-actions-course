@@ -1,7 +1,21 @@
 name: "17 - 2 - Custom Actions - JS"
-run-name: "17 - 1 - Custom Actions - JS"
+run-name: "17 - 1 - Custom Actions - JS | base-branch=${{ inputs.base-branch }} | target-branch=${{ inputs.target-branch }} | base-branch=${{ inputs.working-dir }}"
 on:
   workflow_dispatch:
+    inputs:
+      base-branch:
+        description: "Base branch"
+        type: string
+      target-branch:
+        description: "Target branch"
+        type: string
+      working-dir:
+        description: "Working directory"
+        type: string
+      debug:
+        description: "Whether to debug"
+        type: boolean
+        default: false
 jobs:
   dependency-update:
     runs-on: ubuntu-latest
@@ -10,3 +24,9 @@ jobs:
         uses: actions/checkout@v7
       - name: "Check for dependency updates"
         uses: ./.github/actions/js-dependency-update
+        with:
+          base-branch: ${{ inputs.base-branch }}
+          target-branch: ${{ inputs.target-branch }}
+          working-directory: ${{ inputs.working-dir }}
+          gh-token: ${{ secrets.GITHUB_TOKEN }}
+          debug: ${{ inputs.debug }}
