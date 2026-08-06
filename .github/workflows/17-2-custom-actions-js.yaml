@@ -1,5 +1,5 @@
 name: "17 - 2 - Custom Actions - JS"
-run-name: "17 - 1 - Custom Actions - JS | base-branch=${{ inputs.base-branch }} | target-branch=${{ inputs.target-branch }} | base-branch=${{ inputs.working-dir }}"
+run-name: "17 - 2 - Custom Actions - JS | base-branch=${{ inputs.base-branch }} | target-branch=${{ inputs.target-branch }} | base-branch=${{ inputs.working-dir }}"
 on:
   workflow_dispatch:
     inputs:
