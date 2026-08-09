@@ -9,10 +9,14 @@ const validateDirectoryName = ({ dirName }) =>
 
 async function run() {
   const baseBranch = core.getInput('base-branch');
-  const targetBranch = core.getInput('target-branch');
+  const targetBranch = core.getInput('target-branch', { required: true });
   const ghToken = core.getInput('gh-token');
   const workingDir = core.getInput('working-directory');
   const debug = core.getBooleanInput('debug');
+
+  const commonExecOpts = {
+    cwd: workingDir
+  }
 
   core.setSecret(ghToken);
 
@@ -42,19 +46,33 @@ async function run() {
   core.info(`[js-dependency-update] : working directory is ${workingDir}`);
 
   await exec.exec('npm update', [], {
-    cwd: workingDir,
+    ...commonExecOpts,
   });
 
   const gitStatus = await exec.getExecOutput(
     'git status -s package*.json',
     [],
-    {
-      cwd: workingDir,
-    }
+    ...commonExecOpts,
   );
 
   if (gitStatus.stdout.length > 0) {
     core.info('[js-dependency-update] : There are updates available!');
+    await exec.exec('git config --global user.name "gh-automation"');
+    await exec.exec('git config --global user.email "gh-automation@email.com"');
+    await exec.exec(`git checkout -b ${targetBranch}`, [], {
+      ...commonExecOpts,
+    });
+    await exec.exec(`git add package.json package-lock.json`, [], {
+      ...commonExecOpts,
+    });
+    await exec.exec(`git commit -m "Update dependencies"`, [], {
+      ...commonExecOpts,
+    });
+    await exec.exec(`git push -u origin ${targetBranch} --force`, [], {
+      ...commonExecOpts,
+    });
+
+
   } else {
     core.info('[js-dependency-update] : No updates at this point in time.');
   }
