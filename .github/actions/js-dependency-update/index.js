@@ -59,6 +59,8 @@ async function run() {
     core.info('[js-dependency-update] : No updates at this point in time.');
   }
 
+  const octokit = github.getOctokit(ghToken);
+
   try {
     await octokit.rest.pulls.create({
       owner: github.context.repo.owner,
