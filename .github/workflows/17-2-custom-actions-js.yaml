@@ -14,6 +14,7 @@ on:
       working-dir:
         description: "Working directory"
         type: string
+        default: "17-custom-actions/react-app"
       debug:
         description: "Whether to debug"
         type: boolean
