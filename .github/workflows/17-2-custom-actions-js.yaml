@@ -19,6 +19,9 @@ on:
         description: "Whether to debug"
         type: boolean
         default: false
+permissions:
+  contents: write
+  pull-requests: write
 jobs:
   dependency-update:
     runs-on: ubuntu-latest
