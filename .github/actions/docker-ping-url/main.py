@@ -13,10 +13,11 @@ def ping_url(url, delay, max_trials):
                 return True
 
         except requests.RequestException:
-            print(f"Failed to ping {url}, will retry unless max_trials is hit...")
             pass
 
         trials += 1
+        print(f"Failed to ping {url}, will retry unless max_trials is hit...")
+
 
         if trials < max_trials:
             time.sleep(delay)
