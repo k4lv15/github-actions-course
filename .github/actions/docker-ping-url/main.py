@@ -27,6 +27,8 @@ def run():
 
     if not success:
         raise Exception(f"Failed to ping {url}")
+    else:
+        print('All good!')
 
 if __name__ == "__main__":
     run()
