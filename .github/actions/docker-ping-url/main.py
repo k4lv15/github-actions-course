@@ -33,9 +33,9 @@ def run():
     success = ping_url(url, delay, max_trials)
 
     if not success:
-        raise Exception(f"Failed to ping {url}")
+        raise Exception(f"Failed to ping website {url}, the URL is unreachable or malformed...")
     else:
-        print('All good!')
+        print(f"All good, website {url} is reachable")
 
 if __name__ == "__main__":
     run()
