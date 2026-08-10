@@ -6,19 +6,22 @@ def ping_url(url, delay, max_trials):
     trials = 0
 
     while trials < max_trials:
-        response = requests.get(url)
+        try:
+            response = requests.get(url)
 
-        if response.status_code == 200:
-            return True
+            if response.status_code == 200:
+                return True
 
-        # show "retrying..." only if there will be another trial
-        more_retries = trials < (max_trials - 1)
-        print(f"Tried to ping {url} but failed{', retrying...' if more_retries else ''}")
-        time.sleep(delay)
+        except requests.RequestException:
+            print(f"Failed to ping {url}, will retry unless max_trials is hit...")
+            pass
+
         trials += 1
 
-    return False
+        if trials < max_trials:
+            time.sleep(delay)
 
+    return False
 import os
 
 def run():
