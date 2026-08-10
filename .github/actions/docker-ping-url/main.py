@@ -1,6 +1,7 @@
 import time
 import requests
 import os
+import sys
 
 def ping_url(url, delay, max_trials):
     trials = 0
@@ -34,6 +35,7 @@ def run():
 
     if not success:
         print(f"Failed to ping website {url}, the URL is unreachable or malformed...")
+        sys.exit(1)
     else:
         print(f"All good, website {url} is reachable")
 
