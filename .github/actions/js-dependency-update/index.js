@@ -58,6 +58,7 @@ async function run() {
 
   if (gitStatus.stdout.length > 0) {
     core.info('[js-dependency-update] : There are updates available!');
+    core.setOutput('updates-available', true);
     await exec.exec(`git config --global user.name "gh-automation"`);
     await exec.exec(`git config --global user.email "gh-automation@email.com"`);
     await exec.exec(`git checkout -b ${targetBranch}`, [], {
@@ -90,6 +91,7 @@ async function run() {
       core.error(e);
     }
   } else {
+    core.setOutput('updates-available', false);
     core.info('[js-dependency-update] : No updates at this point in time.');
   }
   /*
