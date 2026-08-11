@@ -32,7 +32,8 @@ def run():
     max_trials = int(os.environ["INPUT_MAX_TRIALS"])
 
     success = ping_url(url, delay, max_trials)
-    print(f"url-reachable={success}", file=open(os.getenv("GITHUB_OUTPUT"), "a"));
+    with open(os.getenv("GITHUB_OUTPUT"), "a") as github_output:
+        print(f"url-reachable={str(success).lower()}", file=github_output);
 
     if not success:
         print(f"Failed to ping website {url}, the URL is unreachable or malformed...")
