@@ -8,5 +8,7 @@ jobs:
       target-directory: test
   e2e-tests:
     uses: k4lv15/github-actions-course-example-e2e/.github/workflows/e2e.yaml@main
+    secrets:
+      access-token: ${{ secrets.GH_TOKEN }}
     needs:
       - deploy
